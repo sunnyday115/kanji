@@ -30,7 +30,7 @@ export const KanjiDetail = () => {
 
                 let processed = cleanSvg
                     .replace(/<svg/, '<svg class="kanjivg-svg"')
-                    .replace(/<path/g, '<path class="stroke-path kanji-path-hidden"');
+                    .replace(/<path/g, '<path class="stroke-path"');
                 setSvgContent(processed);
             })
             .catch(err => {
@@ -52,11 +52,14 @@ export const KanjiDetail = () => {
         const pauseBetweenStrokes = 300 / playbackSpeed;
 
         paths.forEach(p => {
-            p.classList.remove('kanji-path-hidden');
+            p.style.transition = 'none';
             const length = p.getTotalLength();
             p.style.strokeDasharray = length + ' ' + length;
             p.style.strokeDashoffset = length;
         });
+
+        // アニメーション開始前に一度スタイルを適用させる（リフロー強制）
+        svgRef.current.getBoundingClientRect();
 
         paths.forEach((path, index) => {
             const tid = setTimeout(() => {
@@ -102,7 +105,7 @@ export const KanjiDetail = () => {
             const paths = svgRef.current.querySelectorAll('path.stroke-path');
             paths.forEach(p => {
                 p.style.transition = 'none';
-                p.className = 'stroke-path kanji-path-hidden';
+                p.className = 'stroke-path';
                 p.style.strokeDasharray = '';
                 p.style.strokeDashoffset = '';
             });

@@ -97,11 +97,6 @@
     stroke-linejoin: round;
 }
 
-/* アニメーション用：最初は非表示にするクラス */
-.kanji-path-hidden {
-    stroke: transparent !important;
-}
-
 /* コントローラー */
 .controls {
     display: flex;
