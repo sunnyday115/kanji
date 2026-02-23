@@ -20,7 +20,8 @@ export const KanjiDetail = () => {
         const charCode = kanji.charCodeAt(0);
         const hex = charCode.toString(16).toLowerCase().padStart(5, '0');
 
-        fetch(`/kanji/${hex}.svg`)
+        const baseUrl = import.meta.env.BASE_URL || '/';
+        fetch(`${baseUrl}kanji/${hex}.svg`)
             .then(res => res.ok ? res.text() : Promise.reject('Not Found'))
             .then(content => {
                 // SVGタグの開始から終了までを抽出し、不要なXML宣言やDOCTYPEを削除
